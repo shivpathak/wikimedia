@@ -2,7 +2,7 @@ apiVersion: v1
 entries:
   helm-chart-wikimedia:
   - apiVersion: v2
-    appVersion: 1.16.0
+    appVersion: 1.0.0
     created: "2020-09-17T17:39:03.042548+05:30"
     description: A Helm chart for Kubernetes
     digest: 29515a0a596d2deedac6be6f1b8d208f71fa0fa1c983b7da2b266344f5a40767
