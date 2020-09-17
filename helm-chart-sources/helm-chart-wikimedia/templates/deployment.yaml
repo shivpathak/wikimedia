@@ -27,26 +27,50 @@ spec:
       serviceAccountName: {{ include "helm-chart-wikimedia.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      initContainers:
+      - name: init-wikimedia
+        image: "{{ .Values.init.image.repository }}:{{ .Values.init.image.tag | default .Chart.AppVersion }}"
+        command:
+        - sh
+        - -c
+        - cd /tmp && wget https://releases.wikimedia.org/mediawiki/1.34/mediawiki-1.34.2.tar.gz && tar xzvf mediawiki-1.34.2.tar.gz && mv mediawiki-1.34.2 /var/www/html/wikimedia && echo "200 OK" > /var/www/html/wikimedia/healthz && wget https://github.com/shivpathak/wikimedia/raw/master/config/sqlite-wikimedia.tar.gz && tar xzvf sqlite-wikimedia.tar.gz && mv data /var/www/html/ && wget https://raw.githubusercontent.com/shivpathak/wikimedia/master/config/LocalSettings.php && cp LocalSettings.php /var/www/html/wikimedia/
+        volumeMounts:
+        - mountPath: /var/www/html
+          name: wikimedia
       containers:
-        - name: {{ .Chart.Name }}
-          securityContext:
-            {{- toYaml .Values.securityContext | nindent 12 }}
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
-          ports:
-            - name: http
-              containerPort: 80
-              protocol: TCP
-          livenessProbe:
-            httpGet:
-              path: /
-              port: http
-          readinessProbe:
-            httpGet:
-              path: /
-              port: http
-          resources:
-            {{- toYaml .Values.resources | nindent 12 }}
+      - name: wikimedia
+        securityContext:
+          {{- toYaml .Values.securityContext | nindent 12 }}
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        volumeMounts:
+        - mountPath: /var/www/html
+          name: wikimedia
+        - mountPath: /etc/apache2/sites-enabled
+          name: apache-config
+        ports:
+        - name: "http"
+          containerPort: 80
+          protocol: TCP
+        readinessProbe:
+          httpGet:
+            path: /healthz
+            port: 80
+          initialDelaySeconds: 10
+          periodSeconds: 5
+        livenessProbe:
+          tcpSocket:
+            port: 80
+          initialDelaySeconds: 5
+          periodSeconds: 15
+        resources:
+          {{- toYaml .Values.resources | nindent 12 }}
+      volumes:
+      - name: wikimedia
+        emptyDir: {}
+      - name: apache-config
+        configMap:
+          name: {{ include "helm-chart-wikimedia.fullname" . }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
