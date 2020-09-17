@@ -39,3 +39,7 @@ After installation follow the screen to port-forward and access it over http://l
 ```
 helm uninstall demo
 ```
+
+## Helm chart
+
+Click on [helm-chart](./helm-chart-sources/helm-chart-wikimedia)
