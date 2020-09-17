@@ -2,7 +2,7 @@
 
 This is basic demo running wikimedia inside kubernetes in one pod.
 
-**A bit insight:**
+## Insights
 
 - use helm3
 
@@ -24,10 +24,19 @@ helm install demo wikimedia/helm-chart-wikimedia
 
 After installation follow the screen to port-forward and access it over http://localhost:8080
 
-**Note:** Not all features might be available as all php extensions are not installed in container:)
 
-_To login to wikimedia use following credential_
+## Credentials
 
 **username:** wikimedia
 
 **password:** wikimedia@123
+
+
+**Note:** Not all features might be available as all php extensions are not installed in container:)
+
+
+## Cleanup
+
+```
+helm uninstall demo
+```
