@@ -3,12 +3,12 @@ entries:
   helm-chart-wikimedia:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2020-09-17T16:16:06.783314+05:30"
+    created: "2020-09-17T17:39:03.042548+05:30"
     description: A Helm chart for Kubernetes
-    digest: 8b4bdb1f0a6848f485bddd96a4234b921fb12a35fe4d8fa20e7e39664537af5d
+    digest: 29515a0a596d2deedac6be6f1b8d208f71fa0fa1c983b7da2b266344f5a40767
     name: helm-chart-wikimedia
     type: application
     urls:
     - https://shivpathak.github.io/wikimedia/helm-chart-wikimedia-0.1.0.tgz
     version: 0.1.0
-generated: "2020-09-17T16:16:06.782556+05:30"
+generated: "2020-09-17T17:39:03.041947+05:30"
