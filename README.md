@@ -13,7 +13,7 @@ This is basic demo running wikimedia inside kubernetes in one pod.
 - I fetch sqlite db config tar, wikimedia tar and LocalSettings.php file using initContainer.
 
 
-Steps to install wiki media in kubernetes:
+## Helm install
 
 ```
 helm repo add wikimedia https://shivpathak.github.io/wikimedia/
@@ -35,7 +35,7 @@ After installation follow the screen to port-forward and access it over http://l
 **Note:** Not all features might be available as all php extensions are not installed in container:)
 
 
-## Cleanup
+## Helm uninstall
 
 ```
 helm uninstall demo
