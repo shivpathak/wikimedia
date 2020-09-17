@@ -31,8 +31,10 @@ After installation follow the screen to port-forward and access it over http://l
 **password:** wikimedia@123
 
 
-**Note:** Not all features might be available as all php extensions are not installed in container:)
+**Note:**
+- Not all features might be available as all php extensions are not installed in container:)
 
+- Tested on kubernetes 1.16+ and minikube version v1.13.0 with docker engine version 19.03.12
 
 ## Helm uninstall
 
