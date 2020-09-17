@@ -12,7 +12,6 @@ This is basic demo running wikimedia inside kubernetes in one pod.
 
 - I fetch sqlite db config tar, wikimedia tar and LocalSettings.php file using initContainer.
 
-
 ## Helm install
 
 ```
